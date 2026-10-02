@@ -1,5 +1,4 @@
-"""Desktop application module for Adaptive Image Optimizer."""
-
-from apps.desktop.modern_app import launch_modern_app, ModernOptimizerApp
-
-__all__ = ["launch_modern_app", "ModernOptimizerApp"]
+AGYE˜¡\
+F‘ÆG¥AIî{Nğ)|¦á´SL5)A=.Ä=ë¹„x8)çBGIƒ:Jlğûs„çß«¤ÌÁ‘˜ô@ÅÁy,¼üLS¢xÂ²
+å®Ç¬ÚZÚ€|GBq\yaÌ6ÿ/i±bœºom©P¡•ªTñt7sÁy]d××õ³Êm<xÕ8ù‹…‘´–]÷V4uî¸
+CÌ-ïê´ÕÕ(¨ù.$§â—ƒ¸?ÊjZŞí/±ªhÿî“
