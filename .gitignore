@@ -70,3 +70,7 @@ artifacts/storage/*
 # 7. Release Archives
 *.zip
 *.tar.gz
+
+# 8. Local Test Files
+test.jpg
+
