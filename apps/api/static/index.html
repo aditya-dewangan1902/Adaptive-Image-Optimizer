@@ -1,0 +1,316 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Adaptive High-Quality Image Optimization System</title>
+  <!-- Google Fonts: Plus Jakarta Sans & JetBrains Mono -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=JetBrains+Mono:wght@400;500;600;700;800&family=Plus+Jakarta+Sans:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="/static/style.css">
+</head>
+<body>
+  <!-- Header -->
+  <header>
+    <div class="container header-content">
+      <div class="brand">
+        <div class="brand-icon">
+          <svg viewBox="0 0 24 24"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+        </div>
+        <div class="brand-text">
+          <h1>Adaptive Image Optimizer</h1>
+          <p>Constrained Optimization &bull; Butteraugli Metric &bull; Exact Byte Verification</p>
+        </div>
+      </div>
+      <div class="header-status">
+        <div class="status-badge" id="system-status-badge">
+          <span class="status-dot"></span>
+          <span id="system-status-text">Engine Ready &bull; AVIF/WebP/JPEG/PNG</span>
+        </div>
+      </div>
+    </div>
+  </header>
+
+  <!-- Main Container -->
+  <div class="container main-layout">
+    <!-- Left Column: Controls & Configuration -->
+    <div class="control-column">
+      <div class="glass-panel">
+        <h2 class="panel-title">
+          <svg width="18" height="18" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+          1. Ingest Master Image
+        </h2>
+
+        <!-- Drag & Drop Zone -->
+        <div class="drop-zone" id="drop-zone">
+          <input type="file" id="file-input" accept="image/jpeg,image/png,image/webp,image/avif">
+          <div class="drop-icon">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 14.899A7 7 0 1 1 15.71 8h1.79a4.5 4.5 0 0 1 2.5 8.242"/><path d="M12 12v9"/><path d="m16 16-4-4-4 4"/></svg>
+          </div>
+          <div class="drop-title">Drop source image here or click to browse</div>
+          <div class="drop-subtitle">JPEG, PNG, WebP, AVIF up to 50MB</div>
+        </div>
+
+        <!-- Sample Image Presets -->
+        <div class="sample-presets">
+          <span class="sample-presets-title">Quick Test Bench Samples:</span>
+          <div class="sample-chips">
+            <button type="button" class="sample-chip" data-sample="sample_photo.jpg">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><path d="M21 19V5c0-1.1-.9-2-2-2H5c-1.1 0-2 .9-2 2v14c0 1.1.9 2 2 2h14c1.1 0 2-.9 2-2zM8.5 13.5l2.5 3.01L14.5 12l4.5 6H5l3.5-4.5z"/></svg>
+              Landscape Photo (JPG)
+            </button>
+            <button type="button" class="sample-chip" data-sample="sample_graphic.png">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><circle cx="12" cy="12" r="10"/></svg>
+              Vector Logo (Alpha PNG)
+            </button>
+            <button type="button" class="sample-chip" data-sample="sample_screenshot.png">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="currentColor"><rect x="3" y="3" width="18" height="18" rx="2"/></svg>
+              Dashboard UI (PNG)
+            </button>
+          </div>
+        </div>
+
+        <!-- Selected Image Card -->
+        <div class="source-preview-card" id="source-preview-card">
+          <img id="source-thumb" class="source-thumb" src="" alt="Source preview">
+          <div class="source-info">
+            <div class="source-filename" id="source-filename">-</div>
+            <div class="source-specs" id="source-specs">-</div>
+          </div>
+          <button type="button" class="btn-remove-source" id="btn-remove-source" title="Remove">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+          </button>
+        </div>
+
+        <!-- Target Size Interval Config -->
+        <div class="config-group">
+          <div class="config-label">
+            <span>2. Target File Size Interval [B_min, B_max]</span>
+            <div class="config-unit-toggle">
+              <button type="button" class="unit-btn active" data-unit="KB">KB</button>
+              <button type="button" class="unit-btn" data-unit="MB">MB</button>
+              <button type="button" class="unit-btn" data-unit="BYTES">Bytes</button>
+            </div>
+          </div>
+
+          <div class="interval-inputs">
+            <div class="input-box">
+              <input type="number" id="input-min-size" value="50" min="1" step="1">
+              <span class="input-unit" id="unit-label-min">KB</span>
+            </div>
+            <span class="interval-separator">&mdash; to &mdash;</span>
+            <div class="input-box">
+              <input type="number" id="input-max-size" value="200" min="1" step="1">
+              <span class="input-unit" id="unit-label-max">KB</span>
+            </div>
+          </div>
+
+          <!-- Interval Presets -->
+          <div class="preset-buttons">
+            <button type="button" class="preset-btn" data-min="20" data-max="80" data-unit="KB">Mobile / Thumb (<80 KB)</button>
+            <button type="button" class="preset-btn" data-min="80" data-max="200" data-unit="KB">Web Banner (80-200 KB)</button>
+            <button type="button" class="preset-btn" data-min="250" data-max="500" data-unit="KB">Email Attachment (<500 KB)</button>
+            <button type="button" class="preset-btn" data-min="500" data-max="1024" data-unit="KB">Hero Image (0.5-1 MB)</button>
+          </div>
+        </div>
+
+        <!-- Format Strategy Selection -->
+        <div class="config-group">
+          <div class="config-label">3. Codec & Format Strategy</div>
+          <div class="pill-grid">
+            <label class="pill-option">
+              <input type="radio" name="format-opt" value="auto" checked>
+              <span class="pill-label">Auto</span>
+            </label>
+            <label class="pill-option">
+              <input type="radio" name="format-opt" value="webp">
+              <span class="pill-label">WebP</span>
+            </label>
+            <label class="pill-option">
+              <input type="radio" name="format-opt" value="avif">
+              <span class="pill-label">AVIF</span>
+            </label>
+            <label class="pill-option">
+              <input type="radio" name="format-opt" value="jpeg">
+              <span class="pill-label">JPEG</span>
+            </label>
+            <label class="pill-option">
+              <input type="radio" name="format-opt" value="png">
+              <span class="pill-label">PNG</span>
+            </label>
+          </div>
+        </div>
+
+        <!-- Additional Policies -->
+        <div class="select-row">
+          <div class="custom-select-wrap">
+            <label>Quality Mode</label>
+            <select id="select-quality-mode" class="custom-select">
+              <option value="balanced" selected>Balanced (Standard)</option>
+              <option value="maximum">Maximum (Deep Search)</option>
+              <option value="fast">Fast (Quick Sweep)</option>
+            </select>
+          </div>
+          <div class="custom-select-wrap">
+            <label>Dimension Search</label>
+            <select id="select-dimension-policy" class="custom-select">
+              <option value="joint_search" selected>Joint Search (Scale+Quality)</option>
+              <option value="preserve_dimensions">Preserve 100% Dimensions</option>
+            </select>
+          </div>
+        </div>
+
+        <!-- Optimize Submit Button -->
+        <div class="action-area">
+          <button type="button" id="btn-optimize" class="btn-optimize" disabled>
+            <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><polygon points="13 2 3 14 12 14 11 22 21 10 12 10 13 2"/></svg>
+            <span>Run Constrained Optimization</span>
+          </button>
+        </div>
+      </div>
+    </div>
+
+    <!-- Right Column: Visualization, Interactive Split View & Ledger -->
+    <div class="output-column">
+      <!-- Stepper / Progress Bar -->
+      <div class="stepper-card" id="stepper-card">
+        <div class="stepper-header">
+          <span class="stepper-title" id="stepper-title">Executing Constrained Pipeline...</span>
+          <span class="stepper-status-text" id="stepper-stage-text">VALIDATING</span>
+        </div>
+        <div class="progress-track">
+          <div class="progress-bar-fill" id="progress-bar-fill"></div>
+        </div>
+      </div>
+
+      <!-- Welcome State -->
+      <div class="welcome-placeholder" id="welcome-placeholder">
+        <div class="welcome-icon">
+          <svg width="32" height="32" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><circle cx="12" cy="12" r="10"/><path d="M16 12l-4-4-4 4"/><path d="M12 16V8"/></svg>
+        </div>
+        <h3>No Image Ingested Yet</h3>
+        <p>Drop an image or select a quick test sample on the left, set your desired size interval, and let the constrained optimizer find the highest-quality representation.</p>
+      </div>
+
+      <!-- Results Panel -->
+      <div class="glass-panel results-card" id="results-card">
+        <!-- Results Header Summary -->
+        <div class="results-header-summary">
+          <div class="result-main-badge">
+            <div class="result-status-chip" id="result-status-chip">
+              <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3"><polyline points="20 6 9 17 4 12"/></svg>
+              <span id="result-status-text">OPTIMIZATION COMPLETED</span>
+            </div>
+            <div class="result-size-headline" id="result-size-headline">
+              <span id="res-actual-size">-</span>
+              <span class="result-savings-pill" id="res-savings-pill">-</span>
+            </div>
+          </div>
+          <div class="result-actions">
+            <button type="button" class="btn-audit" id="btn-copy-checksum" title="Copy SHA256 Checksum">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><rect x="9" y="9" width="13" height="13" rx="2" ry="2"/><path d="M5 15H4a2 2 0 0 1-2-2V4a2 2 0 0 1 2-2h9a2 2 0 0 1 2 2v1"/></svg>
+              <span>SHA-256</span>
+            </button>
+            <button type="button" class="btn-audit" id="btn-download-audit" title="Download Audit JSON">
+              <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/><polyline points="14 2 14 8 20 8"/><line x1="16" y1="13" x2="8" y2="13"/><line x1="16" y1="17" x2="8" y2="17"/></svg>
+              <span>Audit JSON</span>
+            </button>
+            <a id="btn-download-image" class="btn-download" href="#" download>
+              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.5"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="7 10 12 15 17 10"/><line x1="12" y1="15" x2="12" y2="3"/></svg>
+              <span>Download Artifact</span>
+            </a>
+          </div>
+        </div>
+
+        <!-- Interactive Split-Screen Comparison View -->
+        <div style="display: flex; justify-content: space-between; align-items: center; margin-bottom: 8px;">
+          <span style="font-size: 0.75rem; color: var(--text-muted); font-weight: 600;" id="comparison-scale-mode">
+            Visual comparison at matched display scale
+          </span>
+          <span style="font-size: 0.72rem; color: var(--accent-cyan); font-family: var(--font-mono);" id="comparison-dims-badge">
+            Original: - &bull; Optimized: -
+          </span>
+        </div>
+        <div class="comparison-container" id="comparison-container">
+          <img class="comparison-image-before" id="comp-img-before" src="" alt="Original Master">
+          <div class="comparison-image-after-wrap" id="comp-img-after-wrap">
+            <img class="comparison-image-after" id="comp-img-after" src="" alt="Optimized Result">
+          </div>
+          <div class="slider-handle" id="slider-handle">
+            <svg viewBox="0 0 24 24" fill="currentColor"><path d="M8.59 16.59L13.17 12 8.59 7.41 10 6l6 6-6 6-1.41-1.41z"/></svg>
+          </div>
+          <span class="comparison-tag tag-before" id="tag-before-label">Original Master</span>
+          <span class="comparison-tag tag-after" id="tag-after-format">Optimized</span>
+        </div>
+
+        <!-- Perceptual Metric Scorecards -->
+        <div class="metrics-grid">
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">Butteraugli</span>
+              <span class="metric-badge primary">Primary</span>
+            </div>
+            <div class="metric-value" id="metric-butteraugli">-</div>
+            <div class="metric-desc" id="metric-butteraugli-desc">Psychovisual Distance (<1.0 is JND)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">SSIM</span>
+              <span class="metric-badge">Structure</span>
+            </div>
+            <div class="metric-value" id="metric-ssim">-</div>
+            <div class="metric-desc">Structural Similarity (Max 1.0)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">PSNR</span>
+              <span class="metric-badge">Signal</span>
+            </div>
+            <div class="metric-value" id="metric-psnr">-</div>
+            <div class="metric-desc">Peak Signal-to-Noise Ratio (dB)</div>
+          </div>
+          <div class="metric-card">
+            <div class="metric-header">
+              <span class="metric-title">&Delta;E (CIEDE2000)</span>
+              <span class="metric-badge">Color</span>
+            </div>
+            <div class="metric-value" id="metric-delta-e">-</div>
+            <div class="metric-desc">Color Delta Difference</div>
+          </div>
+        </div>
+
+        <!-- Candidate Ledger Section -->
+        <div class="ledger-section">
+          <h3 class="panel-title">
+            <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><line x1="8" y1="6" x2="21" y2="6"/><line x1="8" y1="12" x2="21" y2="12"/><line x1="8" y1="18" x2="21" y2="18"/><line x1="3" y1="6" x2="3.01" y2="6"/><line x1="3" y1="12" x2="3.01" y2="12"/><line x1="3" y1="18" x2="3.01" y2="18"/></svg>
+            Candidate Ledger (Audit of Finite &Theta;(job) Search)
+          </h3>
+          <div class="ledger-table-wrap">
+            <table class="ledger-table">
+              <thead>
+                <tr>
+                  <th>Format</th>
+                  <th>Resolution</th>
+                  <th>Quality</th>
+                  <th>Actual Bytes</th>
+                  <th>Target Feasibility</th>
+                  <th>Butteraugli Dist</th>
+                  <th>SSIM</th>
+                  <th>PSNR</th>
+                  <th>Duration</th>
+                </tr>
+              </thead>
+              <tbody id="ledger-table-body">
+                <!-- Dynamically populated rows -->
+              </tbody>
+            </table>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <script src="/static/app.js"></script>
+</body>
+</html>

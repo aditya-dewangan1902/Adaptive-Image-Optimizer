@@ -1,0 +1,10 @@
+# Fast Optimization Profile
+profile: fast
+max_total_encodes: 20
+max_parallel_encodes_per_job: 4
+max_coarse_candidates: 10
+max_quality_searches: 8
+max_finalists: 3
+max_wall_clock_ms: 8000
+allowed_scales: [1.0, 0.7, 0.5]
+coarse_qualities: [60, 80]

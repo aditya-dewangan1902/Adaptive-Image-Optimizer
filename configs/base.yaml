@@ -1,0 +1,30 @@
+# Base System Configuration
+environment: development
+version: 1.0.0
+
+server:
+  host: 127.0.0.1
+  port: 8000
+  workers: 1
+
+storage:
+  type: local
+  base_dir: artifacts/storage
+  outputs_dir: artifacts/outputs
+
+budgets:
+  default_profile: balanced
+  max_total_encodes: 40
+  max_parallel_encodes_per_job: 4
+  max_coarse_candidates: 18
+  max_quality_searches: 12
+  max_finalists: 4
+  max_resolution_trials: 5
+  max_wall_clock_ms: 15000
+  max_memory_mb_per_worker: 4096
+
+quality:
+  primary_metric: butteraugli
+  comparison_space: sRGB_8bit
+  proxy_downscale_dim: 128
+  near_tie_threshold: 0.05

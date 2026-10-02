@@ -1,0 +1,72 @@
+# ==========================================
+# Git Ignore for Adaptive Image Optimizer
+# ==========================================
+
+# 1. Bundled Portable Runtime (Distributed via GitHub Releases as pre-built ZIP)
+runtime/
+
+# 2. Bytecode & Caches
+__pycache__/
+*.py[cod]
+*$py.class
+*.so
+.Python
+build/
+develop-eggs/
+dist/
+downloads/
+eggs/
+.eggs/
+lib/
+lib64/
+parts/
+sdist/
+var/
+wheels/
+share/python-wheels/
+*.egg-info/
+.installed.cfg
+*.egg
+MANIFEST
+
+# 3. Virtual Environments
+venv/
+.venv/
+env/
+ENV/
+env.bak/
+venv.bak/
+
+# 4. Testing & Coverage
+.tox/
+.nox/
+.coverage
+.coverage.*
+.cache
+nosetests.xml
+coverage.xml
+*.cover
+*.py,cover
+.hypothesis/
+.pytest_cache/
+
+# 5. IDEs & Editors
+.idea/
+.vscode/
+*.swp
+*.swo
+*~
+.DS_Store
+Thumbs.db
+.gemini/
+
+# 6. Artifacts & Generated Files
+artifacts/outputs/*
+!artifacts/outputs/.gitkeep
+artifacts/storage/*
+!artifacts/storage/.gitkeep
+*.log
+
+# 7. Release Archives
+*.zip
+*.tar.gz

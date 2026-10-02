@@ -1,0 +1,10 @@
+# Max Quality Optimization Profile
+profile: max_quality
+max_total_encodes: 60
+max_parallel_encodes_per_job: 4
+max_coarse_candidates: 24
+max_quality_searches: 16
+max_finalists: 6
+max_wall_clock_ms: 30000
+allowed_scales: [1.0, 0.9, 0.8, 0.7, 0.5]
+coarse_qualities: [50, 70, 85, 95]

@@ -1,0 +1,20 @@
+# Core GUI & UI Framework
+customtkinter>=6.0.0
+darkdetect>=0.8.0
+packaging>=23.0
+
+# Image Processing & Codec Backends
+Pillow>=10.0.0
+pillow-heif>=0.15.0
+numpy>=1.24.0
+scipy>=1.11.0
+scikit-image>=0.22.0
+
+# Configuration & Data Validation
+PyYAML>=6.0
+pydantic>=2.0.0
+
+# Optional Web Mode & Server Engine
+fastapi>=0.110.0
+uvicorn>=0.28.0
+python-multipart>=0.0.9

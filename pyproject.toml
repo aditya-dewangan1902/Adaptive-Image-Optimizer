@@ -1,0 +1,66 @@
+[project]
+name = "adaptive-image-optimizer"
+version = "1.0.0"
+description = "Bounded Constrained Image Optimization Engine with Butteraugli Perceptual Quality"
+readme = "README.md"
+requires-python = ">=3.10"
+license = { text = "MIT" }
+authors = [
+    { name = "Aditya" }
+]
+keywords = [
+    "image-optimization",
+    "butteraugli",
+    "avif",
+    "webp",
+    "jpeg",
+    "png",
+    "constrained-search",
+    "desktop-app",
+    "gui"
+]
+classifiers = [
+    "Development Status :: 5 - Production/Stable",
+    "Environment :: Win32 (MS Windows)",
+    "Intended Audience :: Developers",
+    "Intended Audience :: End Users/Desktop",
+    "License :: OSI Approved :: MIT License",
+    "Operating System :: Microsoft :: Windows",
+    "Programming Language :: Python :: 3",
+    "Programming Language :: Python :: 3.10",
+    "Programming Language :: Python :: 3.11",
+    "Programming Language :: Python :: 3.12",
+    "Programming Language :: Python :: 3.13",
+    "Programming Language :: Python :: 3.14",
+    "Topic :: Multimedia :: Graphics",
+    "Topic :: Multimedia :: Graphics :: Graphics Conversion",
+]
+dependencies = [
+    "customtkinter>=6.0.0",
+    "darkdetect>=0.8.0",
+    "packaging>=23.0",
+    "Pillow>=10.0.0",
+    "pillow-heif>=0.15.0",
+    "numpy>=1.24.0",
+    "scipy>=1.11.0",
+    "scikit-image>=0.22.0",
+    "PyYAML>=6.0",
+    "pydantic>=2.0.0",
+    "fastapi>=0.110.0",
+    "uvicorn>=0.28.0",
+    "python-multipart>=0.0.9",
+]
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=8.0.0",
+    "flake8>=7.0.0",
+]
+
+[build-system]
+requires = ["setuptools>=61.0"]
+build-backend = "setuptools.build_meta"
+
+[tool.setuptools.packages.find]
+where = ["."]
+include = ["src*", "apps*"]
