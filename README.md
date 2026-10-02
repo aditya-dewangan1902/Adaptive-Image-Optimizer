@@ -1,6 +1,6 @@
 # Adaptive High-Quality Image Optimization System
 
-[![GitHub Release](https://img.shields.io/badge/Release-v1.0.0--Portable-blue.svg)](https://github.com)
+[![GitHub Release](https://img.shields.io/badge/Release-v1.0.0--Portable-blue.svg)](https://github.com/aditya-dewangan1902/Adaptive-Image-Optimizer/releases)
 [![Python Version](https://img.shields.io/badge/Python-3.10%20%7C%203.11%20%7C%203.12%20%7C%203.13%20%7C%203.14-blue.svg)](https://www.python.org/)
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 [![Tests: 25/25 Passing](https://img.shields.io/badge/Tests-25%2F25%20Passing-success.svg)](tests/)
@@ -38,7 +38,7 @@ where:
 
 ### Option 1: End Users — Zero-Install Portable Windows Application (Recommended)
 No Python installation or command-line experience required.
-1. Download **`Adaptive_Image_Optimizer_v1.0.0_Portable_Windows.zip`** from [GitHub Releases](https://github.com).
+1. Download **`Adaptive_Image_Optimizer_v1.0.0_Portable_Windows.zip`** from [GitHub Releases](https://github.com/aditya-dewangan1902/Adaptive-Image-Optimizer/releases).
 2. Extract the ZIP file to any folder or USB drive.
 3. Double-click [`launch_gui.bat`](launch_gui.bat) to launch immediately.
 
@@ -46,8 +46,8 @@ No Python installation or command-line experience required.
 For contributors and developers running from source or on Linux/macOS:
 ```bash
 # 1. Clone the repository
-git clone https://github.com/your-username/ImageOptimizer_Portable.git
-cd ImageOptimizer_Portable
+git clone https://github.com/aditya-dewangan1902/Adaptive-Image-Optimizer.git
+cd Adaptive-Image-Optimizer
 
 # 2. Create and activate a virtual environment
 python -m venv .venv
