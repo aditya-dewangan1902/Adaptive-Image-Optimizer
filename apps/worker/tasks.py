@@ -1,1 +1,17 @@
-AGYEcêA›ï†Þ)“NÐ3WÚ!ç¨AÛæª ²³QüÀ¥‹&n•èœen,E;R·1¼RœŸã@#!u³æ§öoRåœÄòN¨­ªšìžuIG„îi^7`c1á.¬‚Oàëˆºí´ÝãYõ d7¼Â ¾É¼„òÖ‰Mp2Ê&Ê<Á¿î3-;©±yš…~mšÚ·;$-cI¾Î ö ]»Í²¡žÓ?Šù!Ç‡%«J[íªÌ3>2~šG[Á›T´]{sù´´»Ì]³<:”Ç–´L*ã½‹–,®z£­)dé­À½ˆôiB@üEÑªÁzI—¼Ó¯ˆ‰R¿N¾áèx!¬¢£çÎƒâQcÓx·Úû3ÔŠØ2:tœ¼žã.:ÂÙ´BÍ½,¨åàl4–»ÊšanL€~÷Ã8„~Ò9Áb°
+"""Worker task execution definitions."""
+
+from src.domain.models.job import Job
+from src.services.optimization_service import OptimizationService
+
+
+def execute_optimization_task(job: Job) -> dict:
+    """Execute optimization job in worker process."""
+    svc = OptimizationService()
+    result = svc.run_job(job)
+    return {
+        "job_id": result.job_id,
+        "status": result.status.value,
+        "output_path": result.output_path,
+        "output_size_bytes": result.output_size_bytes,
+        "duration_ms": result.duration_ms,
+    }

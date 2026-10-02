@@ -1,3 +1,20 @@
-AGYE³©Ò&Q"’¿¹-.7†º©sôT@nFU<ˆ€´üê®DíŸhT'Ï0	ì/!c«nÈ÷ı ãæEñì‡Uô´×ÌÚ{
-^—8L„%‚ M©
-4 Î@\Xsd¢{>pv½(©Şm‰F5sUê0B~ì<¼® ÓjNGåş‡s³`Wõ9²Oû¬,Ä¾Ù.ÅI1t_¯Œ©c>BnMó¾«²–i!¾:%ã*mVBcµ–Ss0~_¹P,¿Ü?¹¾Ğ™oâÊù¸eœÜ¹ÕE^Ÿ+Ë¯o£Â®ŞâŒ[/Aş§Td#vĞåfşkøsõnñzzş»3Ôƒ4Ø¹Ë.íÓ”{šÉræ˜WÚ0,Ç‡PjMÏÛ`ÑZ©e©şÜ‰­¨hD˜ØûüŸßg½2òx@+Õ©íjíİA\yëf`Å=õWÃFÚÍü¨jEÿÚ×Á±Í‹{³\AÊ¢€Yj×0åå«HMî‰ªîˆÕˆQàmí«3<Y]dî²6©ÄªRA&h§l+ñ)™^
+"""PSNR (Peak Signal to Noise Ratio) metric implementation."""
+
+import numpy as np
+from PIL import Image
+
+
+def compute_psnr(reference: Image.Image, candidate: Image.Image) -> float:
+    """Compute PSNR in dB."""
+    if reference.size != candidate.size:
+        candidate = candidate.resize(reference.size, Image.Resampling.BILINEAR)
+
+    ref_arr = np.array(reference.convert("RGB"), dtype=np.float32) / 255.0
+    cand_arr = np.array(candidate.convert("RGB"), dtype=np.float32) / 255.0
+
+    mse = float(np.mean((ref_arr - cand_arr) ** 2))
+    if mse < 1e-10:
+        return 99.0
+
+    score = 10.0 * np.log10(1.0 / mse)
+    return float(max(0.0, score))

@@ -25,10 +25,12 @@ INCLUDED_PATHS = [
     "LICENSE",
     "apps",
     "configs",
+    "docs",
     "runtime",
     "scripts",
     "src",
 ]
+
 
 
 def should_skip(file_path: str) -> bool:

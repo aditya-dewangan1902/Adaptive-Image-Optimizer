@@ -1,11 +1,10 @@
-"""Primary Windows Desktop Application & Web Interface Launcher.
+"""Windows Desktop Application & Web Interface Launcher.
 
-Default Mode:
-  Runs the standalone, bright, minimalist professional native Windows desktop
-  application directly in-process with ZERO server and ZERO network ports.
+Default:
+  Runs the desktop application directly.
 
-Optional Modes:
-  --web       Starts the local Uvicorn web server and opens default browser
+Options:
+  --web       Starts the local web interface and opens browser
   --server    Runs headless API server only (no GUI)
   --port      Port for web server mode (default: 8000)
 """
@@ -25,36 +24,30 @@ if os.path.isdir(RUNTIME_SITE) and RUNTIME_SITE not in sys.path:
 
 os.chdir(WORKSPACE_DIR)
 
-# Automatically activate in-memory decryption hook for encrypted core modules
-try:
-    import secure_loader  # noqa: F401
-except ImportError:
-    pass
-
 
 def parse_args():
     parser = argparse.ArgumentParser(
-        description="Adaptive Image Optimizer - Standalone Windows Application & Web Launcher"
+        description="Adaptive Image Optimizer"
     )
     group = parser.add_mutually_exclusive_group()
     group.add_argument(
         "--desktop",
         action="store_true",
         default=False,
-        help="Launch standalone native Windows desktop application (Default, zero server)",
+        help="Launch desktop application (default)",
     )
     group.add_argument(
         "--web",
         action="store_true",
         default=False,
-        help="Launch local web server and open default web browser",
+        help="Launch web interface",
     )
     group.add_argument(
         "--server",
         "--headless",
         action="store_true",
         default=False,
-        help="Run headless API server only",
+        help="Run headless API server",
     )
     parser.add_argument(
         "--port",
@@ -95,15 +88,10 @@ def main():
             port += 1
 
         url = f"http://{args.host}:{port}"
-        print("=" * 72)
-        print("  Adaptive High-Quality Image Optimization System")
-        print("  Mode: Web Browser Interface")
-        print(f"  Server URL: {url}")
-        print("=" * 72)
+        print(f"Starting web server at {url}...")
 
         def open_browser():
             time.sleep(1.2)
-            print(f"\n[+] Opening browser at: {url}\n")
             webbrowser.open(url)
 
         threading.Thread(target=open_browser, daemon=True).start()
@@ -113,17 +101,11 @@ def main():
     # 2. Headless API Server Mode
     if args.server:
         import uvicorn
-        print(f"[*] Starting headless FastAPI server at http://{args.host}:{args.port}...")
+        print(f"Starting API server at http://{args.host}:{args.port}...")
         uvicorn.run("apps.api.main:app", host=args.host, port=args.port, log_level="info")
         return
 
-    # 3. Default: Standalone Native Windows Desktop Application (Zero Server)
-    print("=" * 72)
-    print("  Adaptive High-Quality Image Optimization System")
-    print("  Mode: Standalone Native Windows Application (In-Process, Zero Server)")
-    print("  UI: Bright Minimalist Professional")
-    print("=" * 72)
-
+    # 3. Default: Desktop Application
     from apps.desktop.modern_app import launch_modern_app
     launch_modern_app()
 

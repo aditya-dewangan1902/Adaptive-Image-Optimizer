@@ -1,4 +1,39 @@
-AGYE>ßã?91 P`m_çefõ˚◊WSCı®ß±.1<cæL≥Dﬁ§.zJN‹B1§oƒWNë'NïíQFlk‹—ÔrôcåK≠o!‘ﬁõ¿›<m$ıû)±ˆ^‹pÀ2FÄ∂pQu†>Ü§–yÀEGtÂ¡^ Ï§3U»Ei|§›≈5˘£åƒñÓU¶ñeX„?$öÈl[üò)¡≥`>=ËıE¶√û› ∫˙qJ¯ò©ìÄ¢˛Váπ¥VÁØ5@r±•ï–?1˙TÑzG{]ºSê˚Ê’∏£†~˜Pâ:WâV˙ÛR±6≥6«(√∫Ì{–F](√Ûƒ=™¢π‡Í™XÛ¡j«ı˛ù;q‚6wı?AÇõóÛAÁÚ@¬É˛—,ÉêÅ]‹ï40¡háìt]ƒ†/Lß
-bnﬁ«0∫ë¬{œMô|¨›ÔL+dø∂£È¨∑2_€p=√g¯ñ:{"dô∂¶“ikª¿–oﬁ≈≈E°2õI˝Ì˝x/lîöö‰B}NÜ);’õXSƒßÈÃ¶Z m†˝ÿñïå˝º—“‘rflº
-!®e^VK™ho;ãjGq†-TæV∂øêJY6Í›o™È+ENÀ/Ó¬ÌaÔ
-ak€∫'^x≈_æxk+‰˘»yÄŸwil3ÍÖàó‹CTì∞6Éi
+"""Budget policy definitions and configurations."""
+
+from dataclasses import dataclass
+
+
+@dataclass(frozen=True)
+class SearchBudget:
+    """Explicit computational and candidate search budgets."""
+    max_total_encodes: int = 50
+    max_parallel_encodes_per_job: int = 4
+    max_coarse_candidates: int = 24
+    max_quality_searches: int = 24
+    max_finalists: int = 4
+    max_resolution_trials: int = 5
+    max_wall_clock_ms: int = 90_000
+    max_memory_mb_per_worker: int = 4096
+
+
+def get_profile_budget(profile_name: str = "balanced") -> SearchBudget:
+    """Return budget corresponding to requested profile."""
+    p_lower = (profile_name or "").lower()
+    if p_lower == "fast":
+        return SearchBudget(
+            max_total_encodes=30,
+            max_coarse_candidates=14,
+            max_quality_searches=14,
+            max_finalists=3,
+            max_wall_clock_ms=30_000,
+        )
+    elif p_lower in ("max_quality", "maximum"):
+        return SearchBudget(
+            max_total_encodes=70,
+            max_coarse_candidates=28,
+            max_quality_searches=32,
+            max_finalists=6,
+            max_wall_clock_ms=120_000,
+        )
+    # Default balanced
+    return SearchBudget()

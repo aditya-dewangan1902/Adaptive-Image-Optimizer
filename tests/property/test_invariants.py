@@ -1,4 +1,4 @@
-"""Property tests enforcing architectural invariants P1 through P8 (Requirement.md)."""
+"""Property tests enforcing architectural invariants P1 through P8 (docs/requirements.md)."""
 
 import os
 import unittest

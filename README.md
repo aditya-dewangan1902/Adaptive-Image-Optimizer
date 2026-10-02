@@ -5,7 +5,6 @@
 [![License: MIT](https://img.shields.io/badge/License-MIT-emerald.svg)](LICENSE)
 [![Tests: 25/25 Passing](https://img.shields.io/badge/Tests-25%2F25%20Passing-success.svg)](tests/)
 [![Platform](https://img.shields.io/badge/Platform-Windows%20%7C%20Linux%20%7C%20macOS-lightgrey.svg)](#-two-ways-to-run)
-[![UI: Modern Light](https://img.shields.io/badge/UI-Bright%20Minimalist%20Desktop-informational.svg)](#-standalone-windows-desktop-application)
 
 A bounded, constrained image-optimization engine that solves the budgeted search problem: finding the visually highest-quality representation strictly within a user-defined target file size interval $[B_{min}, B_{max}]$.
 
@@ -60,7 +59,7 @@ source .venv/bin/activate
 pip install -r requirements.txt
 
 # 4. Launch Desktop Application or Web Interface
-python launch_gui.py          # Native In-Process Desktop GUI
+python launch_gui.py          # Desktop GUI
 python launch_gui.py --web    # Optional Web Browser Interface
 ```
 
@@ -70,16 +69,12 @@ python launch_gui.py --web    # Optional Web Browser Interface
 
 The primary desktop experience is a native, in-process Windows GUI:
 
-- **Zero-Server Architecture**: Runs **directly in-process** calling `JobService` in Python memory. **Zero web servers, zero localhost sockets, zero port conflicts, and instant startup.**
-- **Bright Minimalist Professional UI/UX**: Designed with a clean light aesthetic:
-  - Canvas: Slate background (`#F8FAFC`) with pure white elevated surface cards (`#FFFFFF`).
-  - Typography: Crisp native typography (Segoe UI / Helvetica) with high-contrast text (`#0F172A`).
-  - Accents: Royal blue focus states (`#2563EB`) and mint green badges (`#047857`).
-  - Non-distracting layout without dark gaming or neon aesthetics.
+- **Zero-Server Architecture**: Runs directly in-process calling `JobService` in Python memory without requiring local web servers or open network ports.
+- **Clean Responsive Desktop Interface**: Lightweight, clear visual layout with native typography (Segoe UI) and intuitive controls.
 - **Side-by-Side Visual Inspection**: Real-time comparative canvas displaying original master versus compressed output with exact pixel dimensions, scale factors, and byte size badges.
-- **Native Windows OS Integration**:
-  - 📂 **Open Outputs Folder**: 1-click button to launch Windows File Explorer directly to `artifacts/outputs`.
-  - 💾 **Native Save Dialogs**: Save optimized images and JSON audit certificates to any folder on your machine.
+- **Native OS Integration**:
+  - 📂 **Open Outputs Folder**: 1-click button to open Windows File Explorer directly to `artifacts/outputs`.
+  - 💾 **Native Save Dialogs**: Save optimized images and JSON audit certificates to any folder.
 
 ---
 
@@ -96,8 +91,8 @@ This spins up the FastAPI backend, opens your default browser at `http://127.0.0
 
 | Flag | Description | Default |
 | :--- | :--- | :---: |
-| *(none)* | Launches standalone in-process Desktop GUI | Active |
-| `--desktop` | Explicitly launch the native in-process Desktop GUI | Active |
+| *(none)* | Launches desktop GUI | Active |
+| `--desktop` | Explicitly launch the desktop GUI | Active |
 | `--web` | Start FastAPI server and open web browser | Disabled |
 | `--server` | Start headless FastAPI API server only | Disabled |
 | `--host HOST` | Bind host address for web/server mode | `127.0.0.1` |
@@ -127,19 +122,17 @@ This spins up the FastAPI backend, opens your default browser at `http://127.0.0
 ImageOptimizer_Portable/
 ├── .github/
 │   └── workflows/ci.yml       # GitHub Actions automated test workflow
-├── launch_gui.bat             # 1-click Standalone Desktop Application launcher
-├── launch_web.bat             # 1-click Web Browser Interface launcher
+├── docs/                      # Technical specifications & architecture
+│   ├── architecture.md        # System architecture and layer boundaries
+│   ├── pipeline.md            # Multi-stage optimization pipeline specification
+│   └── requirements.md        # Mathematical formulation and formal requirements
+├── launch_gui.bat             # Desktop application launcher
+├── launch_web.bat             # Web browser interface launcher
 ├── launch_gui.py              # Unified CLI launcher (--desktop, --web, --server)
 ├── runtime/                   # Bundled portable Python runtime (distributed via Releases)
 ├── apps/
-│   ├── desktop/               # Standalone In-Process Windows GUI
-│   │   ├── __init__.py
-│   │   └── modern_app.py      # Bright Minimalist CustomTkinter Desktop Application
+│   ├── desktop/               # Standalone Windows GUI (modern_app.py)
 │   ├── api/                   # FastAPI routes, schemas, and static Web GUI
-│   │   ├── main.py
-│   │   ├── routes/            # health.py, jobs.py, results.py
-│   │   ├── schemas/           # jobs.py, results.py
-│   │   └── static/            # index.html, style.css, app.js, samples/
 │   └── worker/                # Worker consumers, tasks, and sandbox audit
 ├── src/
 │   ├── domain/                # Models, policies, certificates, and status codes
@@ -149,18 +142,18 @@ ImageOptimizer_Portable/
 │   ├── optimization/          # Multi-stage constrained search engine
 │   ├── services/              # JobService, OptimizationService, ResultService
 │   └── infrastructure/        # Storage, cache, telemetry
-├── configs/                   # base.yaml, fast.yaml, balanced.yaml, max_quality.yaml
+├── configs/                   # Optimization profiles (base, fast, balanced, max_quality)
 ├── scripts/
-│   ├── package_release.py     # 1-click packager for GitHub Releases ZIP
-│   ├── verify_environment.py  # Diagnostics for encoder backends and PIL plugins
-│   └── secure_core.py         # Core integrity loader & security wrapper
-├── tests/                     # Property invariants, codec tests, perceptual quality tests
+│   ├── package_release.py     # Packager for portable distribution ZIP
+│   └── verify_environment.py  # Diagnostics for encoder backends and PIL plugins
+├── tests/                     # Unit, property invariant, and integration test suite
 ├── requirements.txt           # Python package dependencies
 ├── pyproject.toml             # Project metadata, build specs, and tooling config
 ├── CONTRIBUTING.md            # Guidelines for contributors
 ├── LICENSE                    # MIT License
 └── README.md
 ```
+
 
 ---
 
@@ -214,6 +207,12 @@ This automatically packages the application, documentation, launchers, and bundl
 ## 🤝 Contributing
 
 Contributions are welcome! Please read [CONTRIBUTING.md](CONTRIBUTING.md) for details on code style, branch structure, and test execution.
+
+---
+
+## 👤 Author
+
+**Aditya Dewangan** — [@aditya-dewangan1902](https://github.com/aditya-dewangan1902)
 
 ---
 

@@ -1,3 +1,8 @@
-AGYEh?;Go?®¿¬±³ÜjÒéÅ`i5RÚ&s~*
-»¨Ù¼Eïc:Äß=Á	…[‘ÿ6ÁâÚ©¦k	±ËÞÄ×ËÑãYeL“ç"ß--‘Þ»_nã‘Ëê/ê=žERŸX?^¸v1pÂ¸¡ F’ƒ"£©”B²Î[—sÆÂQB¶ÚWŸÖ¢Ý_$E//Ã~ë¼^ó²îÛšù?¼çH¡Èò}´äG³O~gå•»à¤ç0)ÙÈàK_V¯lŸ§>q”Y©<.IS¼½¢~&9ÝÞ9„ø®ùO
-#á~2„GX½ôð«)ƒû8†;ö+»õá­gu
+"""Worker process entry point."""
+
+from apps.worker.consumers import process_queue_loop
+from src.infrastructure.telemetry.logging import logger
+
+if __name__ == "__main__":
+    logger.info("Starting Image Optimizer Worker service...")
+    process_queue_loop()

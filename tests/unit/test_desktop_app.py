@@ -11,12 +11,9 @@ RUNTIME_SITE = os.path.join(WORKSPACE_DIR, "runtime", "Lib", "site-packages")
 if os.path.isdir(RUNTIME_SITE) and RUNTIME_SITE not in sys.path:
     sys.path.insert(1, RUNTIME_SITE)
 
-try:
-    import secure_loader  # noqa: F401
-except ImportError:
-    pass
-
 import unittest
+
+
 from unittest.mock import patch, MagicMock
 import launch_gui
 from apps.desktop.modern_app import ModernOptimizerApp

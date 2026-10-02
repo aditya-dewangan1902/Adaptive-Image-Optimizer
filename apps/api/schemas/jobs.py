@@ -1,2 +1,26 @@
-AGYEà4ûj-'šŽ5±ú˜_µH5ß¹<ÿûR›l>Ð°—îÙ…úñ‹É:%ëMÐ#N66Jo1„ç]¾Ö‘µyíÀÓÓ··$$Ágìû“T.î-^è-tÞM›tq‡ï+j¬“qWƒ–.«rt·ô~.ÄMÕvÛT”oîŒËc¥(‘ÞéÎ) ïÝ»U›½QôxùÏ²áœó£Ñ&nO“œÁ“–ì9œ@4¡¦×é/`DËùGäÍU/¶
-—òm"vKôùÝ¸êÈ´Í5xÈ§ªV˜qK+-Á;@ûáŽ¶ƒæ¢©û]i4ßSŒ‡ËÎ6AÔDEŽ5Ÿá#´š¤6_8(»ÑþÂ ú	²D`· š¼Šµ«"ÐÇ?#ô™D`¥Ów\Õ‚t×<MR µ4q‹õ±\®Ô†™ÈQJÀð™9'Q³ÄúDŒm{ÔrÕUMoÔ¸Mf6Ô7s—ÉƒÌr’OÊ·™Xuõ‚w÷YLîµéÎÕsBFŒ	+ißÓ‰rX|¢í†Ù`Ã`·Â82'¡¯¬ä™ß¥pô¤3¹›k¡½rY,Û“OŒüÛ.fc›^w+j±7VGÙý<\~àû`iL–:³í÷›ñÌK$–j¥ˆãÖÛÇñÇƒAó^q#½[ò«m³Ñ?¥XV·íªù‰R÷–Ü3Î,º¾
+"""Pydantic schemas for optimization API requests and responses."""
+
+from typing import Optional, List, Dict, Any
+from pydantic import BaseModel, Field
+
+
+class JobCreateRequest(BaseModel):
+    target_min_bytes: int = Field(..., gt=0, description="Minimum allowable file size in bytes")
+    target_max_bytes: int = Field(..., gt=0, description="Maximum allowable file size in bytes")
+    format: str = Field(default="auto", description="Requested format: auto, webp, avif, jpeg, png")
+    quality_mode: str = Field(default="balanced", description="fast, balanced, maximum")
+    metadata_policy: str = Field(default="minimal", description="strip_all, minimal, preserve_all")
+    dimension_policy: str = Field(default="joint_search", description="joint_search, preserve_dimensions")
+    budget_profile: str = Field(default="balanced", description="fast, balanced, max_quality")
+
+
+class JobResponse(BaseModel):
+    job_id: str
+    status: str
+    source_filename: str
+    target_min_bytes: int
+    target_max_bytes: int
+    stage_message: str
+    created_at: float
+    updated_at: float
+    result: Optional[Dict[str, Any]] = None
