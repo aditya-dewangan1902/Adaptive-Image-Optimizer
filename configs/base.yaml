@@ -14,13 +14,13 @@ storage:
 
 budgets:
   default_profile: balanced
-  max_total_encodes: 40
+  max_total_encodes: 50
   max_parallel_encodes_per_job: 4
   max_coarse_candidates: 18
-  max_quality_searches: 12
+  max_quality_searches: 24
   max_finalists: 4
   max_resolution_trials: 5
-  max_wall_clock_ms: 15000
+  max_wall_clock_ms: 120000
   max_memory_mb_per_worker: 4096
 
 quality:

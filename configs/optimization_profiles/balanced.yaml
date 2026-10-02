@@ -1,10 +1,10 @@
 # Balanced Optimization Profile
 profile: balanced
-max_total_encodes: 40
+max_total_encodes: 50
 max_parallel_encodes_per_job: 4
 max_coarse_candidates: 18
-max_quality_searches: 12
+max_quality_searches: 24
 max_finalists: 4
-max_wall_clock_ms: 15000
+max_wall_clock_ms: 120000
 allowed_scales: [1.0, 0.85, 0.7, 0.5]
 coarse_qualities: [55, 75, 88]
